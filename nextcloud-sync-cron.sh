@@ -212,7 +212,7 @@ USERNAME=`getconfig --optional username "$CONF_FILE"`
 PASSWORD=`getconfig --optional password "$CONF_FILE"`
 
 UNSYNCEDFOLDERS=`getconfig --optional unsyncedfolders "$CONF_FILE"`
-DAVPATH=`getconfig --optional davpath "$CONF_FILE"`
+REMPATH=`getconfig --optional rempath "$CONF_FILE"`
 UPLIMIT=`getconfig --optional uplimit "$CONF_FILE"`
 DOWNLIMIT=`getconfig --optional downlimit "$CONF_FILE"`
 EXCLUDE=`getconfig --optional exclude "$CONF_FILE"`
@@ -490,9 +490,9 @@ if [ -n "$UNSYNCEDFOLDERS" ]; then
   UNSYNCEDFOLDERS_SETTING="unsyncedfolders: $UNSYNCEDFOLDERS"
 fi
 
-DAVPATH_SETTING=
-if [ -n "$DAVPATH" ]; then
-  DAVPATH_SETTING="davpath: $DAVPATH"
+REMPATH_SETTING=
+if [ -n "$REMPATH" ]; then
+  REMPATH_SETTING="rempath: $REMPATH"
 fi
 
 UPLIMIT_SETTING=
@@ -531,7 +531,7 @@ remote: $REMOTE_URI
 local: $LOCAL_DIR
 
 $UNSYNCEDFOLDERS_SETTING
-$DAVPATH_SETTING
+$REMPATH_SETTING
 $UPLIMIT_SETTING
 $DOWNLIMIT_SETTING
 $EXCLUDE_SETTING
@@ -554,9 +554,9 @@ if [ -n "$UNSYNCEDFOLDERS" ]; then
   UNSYNCEDFOLDERS_OPTION="--unsyncedfolders \"$UNSYNCEDFOLDERS\""
 fi
 
-DAVPATH_OPTION=
-if [ -n "$DAVPATH" ]; then
-  DAVPATH_OPTION="--davpath \"$DAVPATH\""
+REMPATH_OPTION=
+if [ -n "$REMPATH" ]; then
+  REMPATH_OPTION="--path \"$REMPATH\""
 fi
 
 UPLIMIT_OPTION=
@@ -591,7 +591,7 @@ if [ -n "$USERNAME" ]; then
   # Credentials on command line
   if eval "$NEXTCLOUDCMD" --user "$USERNAME" --password "$PASSWORD" \
           $UNSYNCEDFOLDERS_OPTION \
-          $DAVPATH_OPTION \
+          $REMPATH_OPTION \
           $UPLIMIT_OPTION \
           $DOWNLIMIT_OPTION \
           $EXCLUDE_OPTION \
@@ -604,7 +604,7 @@ else
   # Credentials from ~/.netrc (the "-n" means to use netrc for login)
   if eval "$NEXTCLOUDCMD" -n \
           $UNSYNCEDFOLDERS_OPTION \
-          $DAVPATH_OPTION \
+          $REMPATH_OPTION \
           $UPLIMIT_OPTION \
           $DOWNLIMIT_OPTION \
           $EXCLUDE_OPTION \
